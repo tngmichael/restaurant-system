@@ -1,0 +1,7 @@
+{
+  "extends": "../../packages/framework/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@restaurant-system/shared",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "description": "",
+  "scripts": {
+    "postinstall": "npm run build",
+    "build": "tsc",
+    "format": "prettier --write \"(src|test)/**/*.ts\"",
+    "lint": "echo nop"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/swagger": "^7.2.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.3"
+  }
+}

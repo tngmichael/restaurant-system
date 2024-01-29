@@ -1,0 +1,89 @@
+version: '3'
+services:
+  gateway:
+    image: restaurant-system:latest
+    hostname: gateway
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8800:8000
+    networks:
+      - backend
+    depends_on:
+      - db
+      - rmq
+    command: '@restaurant-system/gateway'
+
+  order:
+    image: restaurant-system:latest
+    hostname: order
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - backend
+    depends_on:
+      - db
+      - rmq
+    command: '@restaurant-system/order'
+
+  notification:
+    image: restaurant-system:latest
+    hostname: notification
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - backend
+    depends_on:
+      - db
+      - rmq
+    command: '@restaurant-system/notification'
+
+  kitchen:
+    image: restaurant-system:latest
+    hostname: kitchen
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - backend
+    depends_on:
+      - db
+      - rmq
+    command: '@restaurant-system/kitchen'
+
+  db:
+    image: mysql:8.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./infra/mysql/data:/var/lib/mysql
+    # ports:
+    #   - 3306:3306
+    networks:
+      - backend
+
+  rmq:
+    # image: rabbitmq:3-management-alpine
+    image: rabbitmq:3-alpine
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: rootpw
+    # ports:
+    #   - 15672:15672
+    #   - 5672:5672
+    volumes:
+      - ./infra/rabbitmq/data:/var/lib/rabbitmq
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
