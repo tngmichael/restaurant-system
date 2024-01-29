@@ -42,6 +42,7 @@ Content-Type: application/json
 - NOTE: to see database records, uncomment db ports in docker-compose.yml
 - NOTE: to see rabbitmq dashboard, use image rabbitmq:3-management-alpine and uncomment rmq ports in docker-compose.yml
 - NOTE: docker-compose using attached volume in folder `infra`, if something went wrong, delete all folders inside 
+- NOTE: public docker restaurant-system is also available, set image tngmichael89/restaurant-system:1.0.0 in docker-compose.yml
 
 ## Clean up
 
